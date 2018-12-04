@@ -7,7 +7,7 @@ RUN apt clean && apt update && apt install -y git vim htop
 
 WORKDIR /home/zoul15/pylib
 RUN git clone https://github.com/zoulei/hunlgame.git
-RUN export PYTHONPATH=$PYTHONPATH:/home/zoul15/pylib/
+ENV PYTHONPATH="/home/zoul15/pylib/:${PYTHONPATH}"
 RUN pip install pymongo
 
 WORKDIR /home/zoul15
