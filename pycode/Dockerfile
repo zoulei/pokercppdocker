@@ -8,8 +8,7 @@ RUN apt clean && apt update && apt install -y git vim htop
 WORKDIR /home/zoul15/pylib
 RUN git clone https://github.com/zoulei/hunlgame.git
 ENV PYTHONPATH="/home/zoul15/pylib/:${PYTHONPATH}"
-RUN pip install pymongo
+RUN pip install pymongo numpy
 
-WORKDIR /home/zoul15
-RUN git clone https://github.com/zoulei/newpokerweb.git
-WORKDIR /home/zoul15/newpokerweb
+COPY pokerweb/ /home/zoul15/pokerweb
+WORKDIR /home/zoul15/pokerweb
