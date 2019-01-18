@@ -1,6 +1,7 @@
 FROM zoul15/helloprepare:1
 
 RUN mkdir -p /home/zoul15/testdir/
+RUN mkdir -p /home/zoul15/testdirdata/TESTPARALLELLEARNDIR
 WORKDIR /home/zoul15/testdir/
 COPY testdir/ /home/zoul15/testdir/
 
