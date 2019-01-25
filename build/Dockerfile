@@ -14,8 +14,9 @@ RUN export LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 RUN BUILD_DIR=/home/zoul15/testdir/build  \
 && mkdir $BUILD_DIR \ 
 && cd $BUILD_DIR \
-&& cmake .. \
-&& make
+&& cmake ..
+#\
+#&& make
 
 WORKDIR /home/zoul15/testdir/build
 
