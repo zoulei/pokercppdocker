@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker run -it zoul15/hellopy:1 /bin/bash
+sudo docker run -it pustudy/hellopy:1 /bin/bash

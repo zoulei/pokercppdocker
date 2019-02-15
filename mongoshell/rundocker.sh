@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker run -it zoul15/mongoshell:1
+sudo docker run -it pustudy/mongoshell:1

@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker build --rm -t "zoul15/hellogpuenv:1" .
+sudo docker build --rm -t "pustudy/hellogpuenv:1" .

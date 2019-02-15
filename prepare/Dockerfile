@@ -1,4 +1,4 @@
-FROM zoul15/hellorun:1
+FROM pustudy/hellorun:1
 
 RUN mkdir -p /home/zoul15/testdir/
 WORKDIR /home/zoul15/testdir/

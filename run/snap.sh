@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker build --rm -t "zoul15/hellorun:1" .
+sudo docker build --rm -t "pustudy/hellorun:1" .

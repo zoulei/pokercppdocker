@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker build --rm -t "zoul15/mongoshell:1" .
+sudo docker build --rm -t "pustudy/mongoshell:1" .

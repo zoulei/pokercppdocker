@@ -1,4 +1,4 @@
 #!/bin/bash
-sudo docker build --rm -t "zoul15/helloprepare:1" .
+sudo docker build --rm -t "pustudy/helloprepare:1" .
 
 

@@ -1,4 +1,4 @@
-FROM zoul15/hellogpudata:1
+FROM pustudy/hellogpudata:1
 
 ENV PYTHONPATH="/home/zoul15/pylib/:${PYTHONPATH}"
 
