@@ -1,3 +1,2 @@
 #!/bin/bash
-sudo docker build --rm -t "pustudy/hellogpu:1" .
-sudo nvidia-docker run -it -e CUDA_VISIBLE_DEVICES=3 pustudy/hellogpu:1 /bin/bash
+sudo nvidia-docker run -it -v /home/zoul15/pcshareddir:/home/zoul15/pcshareddir -v /home/zoul15/pccppdocker/gputraincode/pokerweb:/home/zoul15/pokerweb -e CUDA_VISIBLE_DEVICES=6 pustudy/hellogpu:1 /bin/bash
