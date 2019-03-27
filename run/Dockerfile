@@ -2,7 +2,7 @@
 FROM ubuntu:18.04
 
 # Be sure to install any runtime dependencies
-RUN apt clean && apt update && apt install -y software-properties-common && \
+RUN apt clean && apt update && apt install -y software-properties-common gnuplot && \
     add-apt-repository -y ppa:jonathonf/gcc && \
     apt update && \
     apt install -y gcc-7 g++-7 \
