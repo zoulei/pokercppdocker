@@ -5,7 +5,7 @@ FROM ubuntu:18.04
 RUN apt clean && apt update && apt install -y software-properties-common gnuplot && \
     add-apt-repository -y ppa:jonathonf/gcc && \
     apt update && \
-    apt install -y gcc-7 g++-7 \
+    apt install -y gcc-7 g++-7 python3-pip \
 wget unzip \
 build-essential \
 cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev \
@@ -29,6 +29,12 @@ libcurl4-openssl-dev pkg-config libssl-dev python-dev python-numpy libtbb2 libtb
 
 # libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev \
 # apt-get clean && apt-get update &&
+
+RUN pip3 install \
+pyemd pymongo numpy scipy sympy pandas tables scikit-learn matplotlib tqdm \
+seaborn pillow imageio PyYAML sqlalchemy pymongo jinja2 scikit-image scipy progressbar2 mock pep8 coverage \
+mako Flask GitPython tinydb tinydb-serialization hashfs fs \
+tensorflow==1.5 keras
 
 # Install mongocxx
 RUN mkdir -p ~/mongoxx && cd ~/mongoxx && \
