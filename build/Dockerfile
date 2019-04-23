@@ -1,4 +1,4 @@
-FROM pustudy/hellorun:1
+FROM pustudy/helloprepare:1
 
 RUN mkdir -p /home/zoul15/testdir/
 RUN mkdir -p /home/zoul15/testdirdata/TESTPARALLELLEARNDIR
