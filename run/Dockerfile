@@ -2,10 +2,9 @@
 FROM ubuntu:18.04
 
 # Be sure to install any runtime dependencies
-RUN apt clean && apt update && apt install -y software-properties-common gnuplot && \
-    add-apt-repository -y ppa:jonathonf/gcc && \
-    apt update && \
-    apt install -y gcc-7 g++-7 python3-pip \
+RUN apt clean && apt update && apt install -y \
+software-properties-common gnuplot \
+python3-pip \
 wget unzip \
 build-essential \
 cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev \
@@ -17,9 +16,12 @@ htop \
 gdb \
 vim \
 libcurl4-openssl-dev pkg-config libssl-dev python-dev python-numpy libtbb2 libtbb-dev \
-&& update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 && \
+gcc-7 g++-7
+
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 && \
     update-alternatives --install /usr/bin/cpp cpp /usr/bin/cpp-7 100 && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 100
+
 # RUN apt-get install -y python-opencv
 # RUN apt-get install -y opencv-data
 # RUN apt-get install -y libopencv-dev
@@ -31,7 +33,7 @@ libcurl4-openssl-dev pkg-config libssl-dev python-dev python-numpy libtbb2 libtb
 # apt-get clean && apt-get update &&
 
 RUN pip3 install \
-pyemd pymongo numpy scipy sympy pandas tables scikit-learn matplotlib tqdm \
+pymongo numpy scipy sympy pandas tables scikit-learn matplotlib tqdm \
 seaborn pillow imageio PyYAML sqlalchemy pymongo jinja2 scikit-image scipy progressbar2 mock pep8 coverage \
 mako Flask GitPython tinydb tinydb-serialization hashfs fs \
 tensorflow==1.5 keras
@@ -69,3 +71,10 @@ RUN mkdir -p ~/opencv cd ~/opencv && \
     make install && \
     ldconfig
 
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 && \
+    add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' && \
+    apt update && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt install -y r-base
+RUN echo -e 'install.packages("/home/zoul15/MonoPoly", repos = NULL, type = "source")' >> /home/zoul15/installpcg.R && \
+    Rscript /home/zoul15/installpcg.R
