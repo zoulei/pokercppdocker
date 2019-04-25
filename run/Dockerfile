@@ -60,21 +60,23 @@ RUN cd ~/mongoxx && \
     make install
 
 # Install Open CV - Warning, this takes absolutely forever
-RUN mkdir -p ~/opencv cd ~/opencv && \
-    wget https://github.com/Itseez/opencv/archive/3.4.0.zip && \
-    unzip 3.4.0.zip && \
-    cd opencv-3.4.0 && \
-    mkdir build && \
-    cd build && \
-    cmake -D CMAKE_BUILD_TYPE=Release -D ENABLE_CXX=1 -D CMAKE_INSTALL_PREFIX=/usr/local .. && \
-    make -j4 && \
-    make install && \
-    ldconfig
+#RUN mkdir -p ~/opencv cd ~/opencv && \
+#    wget https://github.com/Itseez/opencv/archive/3.4.0.zip && \
+#    unzip 3.4.0.zip && \
+#    cd opencv-3.4.0 && \
+#    mkdir build && \
+#    cd build && \
+#    cmake -D CMAKE_BUILD_TYPE=Release -D ENABLE_CXX=1 -D CMAKE_INSTALL_PREFIX=/usr/local .. && \
+#    make -j4 && \
+#    make install && \
+#    ldconfig
+
+COPY MonoPoly/ /home/zoul15/MonoPoly/
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 && \
     add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' && \
     apt update && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt install -y r-base
-RUN echo -e 'install.packages("/home/zoul15/MonoPoly", repos = NULL, type = "source")' >> /home/zoul15/installpcg.R && \
+RUN echo "install.packages('MonoPoly')\ninstall.packages('/home/zoul15/MonoPoly', repos = NULL, type = 'source')" >> /home/zoul15/installpcg.R && \
     Rscript /home/zoul15/installpcg.R
