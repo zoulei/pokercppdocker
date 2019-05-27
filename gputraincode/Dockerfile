@@ -1,4 +1,5 @@
-FROM pustudy/hellogpudata:1
+#FROM pustudy/hellogpudata:1
+FROM docker.peidan.me/haowenxu/ml-runtime:gpu
 
 ENV PYTHONPATH="/home/zoul15/pylib/:${PYTHONPATH}"
 
