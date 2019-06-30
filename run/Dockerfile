@@ -16,7 +16,12 @@ htop \
 gdb \
 vim \
 libcurl4-openssl-dev pkg-config libssl-dev python-dev python-numpy libtbb2 libtbb-dev \
-gcc-7 g++-7
+gcc-7 g++-7 \
+pkg-config zip g++ zlib1g-dev unzip python \
+build-essential curl git cmake unzip autoconf autogen automake libtool mlocate \
+zlib1g-dev g++-7 python python3-numpy python3-dev python3-pip python3-wheel wget
+
+RUN updatedb
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 && \
     update-alternatives --install /usr/bin/cpp cpp /usr/bin/cpp-7 100 && \
@@ -39,7 +44,7 @@ mako Flask GitPython tinydb tinydb-serialization hashfs fs \
 tensorflow==1.5 keras
 
 # Install mongocxx
-RUN mkdir -p ~/mongoxx && cd ~/mongoxx && \
+RUN mkdir -p /home/zoul15/mongoxx && cd /home/zoul15/mongoxx && \
     wget https://github.com/mongodb/mongo-c-driver/releases/download/1.13.0/mongo-c-driver-1.13.0.tar.gz && \
     tar -xzf mongo-c-driver-1.13.0.tar.gz && \
     cd mongo-c-driver-1.13.0 && \
@@ -51,7 +56,7 @@ RUN mkdir -p ~/mongoxx && cd ~/mongoxx && \
 
 RUN apt install openssl libssl-dev
 
-RUN cd ~/mongoxx && \
+RUN cd /home/zoul15/mongoxx && \
     wget https://github.com/mongodb/mongo-cxx-driver/archive/r3.4.0.tar.gz && \
     tar -xzf r3.4.0.tar.gz && \
     cd mongo-cxx-driver-r3.4.0/build && \
@@ -80,3 +85,16 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD5
     apt install -y r-base
 RUN echo "install.packages('MonoPoly')\ninstall.packages('/home/zoul15/MonoPoly', repos = NULL, type = 'source')" >> /home/zoul15/installpcg.R && \
     Rscript /home/zoul15/installpcg.R
+
+RUN cd /home/zoul15 && wget https://github.com/bazelbuild/bazel/releases/download/0.21.0/bazel-0.21.0-installer-linux-x86_64.sh && \
+    chmod +x bazel-0.21.0-installer-linux-x86_64.sh && \
+    ./bazel-0.21.0-installer-linux-x86_64.sh
+
+RUN git clone https://github.com/FloopCZ/tensorflow_cc.git && \
+    cd tensorflow_cc && \
+    cd tensorflow_cc && \
+    mkdir build && cd build && \
+    cmake -DTENSORFLOW_STATIC=OFF -DTENSORFLOW_SHARED=ON .. && \
+    make && make install && \
+    rm -rf ~/.cache && \
+    cd .. && rm -rf build

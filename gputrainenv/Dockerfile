@@ -1,7 +1,7 @@
 FROM docker.peidan.me/haowenxu/ml-runtime:gpu
 #FROM tensorflow/tensorflow:latest-gpu-py3
 
-RUN apt clean && apt update && apt install -y git vim htop && pip install opencv-python setuptools wheel && pip install \
+RUN apt clean && apt update && apt install -y git vim htop && pip3 install opencv-python setuptools wheel && pip install \
 pyemd pymongo numpy scipy sympy pandas tables scikit-learn matplotlib tqdm \
 seaborn pillow imageio PyYAML sqlalchemy pymongo jinja2 scikit-image scipy progressbar2 mock pep8 coverage \
 mako Flask GitPython tinydb tinydb-serialization hashfs fs \
