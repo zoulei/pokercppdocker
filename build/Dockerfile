@@ -14,6 +14,7 @@ RUN cd /home/zoul15 && wget https://astuteinternet.dl.sourceforge.net/project/cp
 && cd /home/zoul15/cppcms-1.2.1/build && cmake .. && make && make install
 
 
+RUN cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
 
 RUN mkdir -p /home/zoul15/pylib && cd /home/zoul15/pylib && git clone https://github.com/zoulei/hunlgame.git
 ENV PYTHONPATH=$PATHONPATH:/home/zoul15/pylib
@@ -32,10 +33,10 @@ ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 ENV LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
 # These are the build steps
-RUN BUILD_DIR=/home/zoul15/testdir/build  \
-&& mkdir $BUILD_DIR \ 
-&& cd $BUILD_DIR \
-&& cmake ..
+#RUN BUILD_DIR=/home/zoul15/testdir/build  \
+#&& mkdir $BUILD_DIR \
+#&& cd $BUILD_DIR \
+#&& cmake ..
 #\
 #&& make
 
