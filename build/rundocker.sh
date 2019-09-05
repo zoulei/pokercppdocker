@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo docker run -e HOST_HOSTNAME=`hostname` \
+sudo docker run -e HOST_HOSTNAME=`hostname` --network host \
 -e LD_LIBRARY_PATH="/usr/local/lib" \
 -v /mnt/mfs/users/zoul15/pccppdocker/build/pokerweb:/home/zoul15/pokerweb \
 -v /mnt/mfs/users/zoul15/pccppdocker/build/testdir:/home/zoul15/testdir \
