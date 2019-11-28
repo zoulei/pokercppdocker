@@ -38,10 +38,11 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 && \
 # apt-get clean && apt-get update &&
 
 RUN pip3 install \
-pymongo numpy scipy sympy pandas tables scikit-learn matplotlib tqdm \
+pymongo numpy==1.15.0 scipy sympy pandas tables scikit-learn matplotlib tqdm \
 seaborn pillow imageio PyYAML sqlalchemy pymongo jinja2 scikit-image scipy progressbar2 mock pep8 coverage \
 mako Flask GitPython tinydb tinydb-serialization hashfs fs \
-tensorflow==1.5 keras
+tensorflow keras
+#tensorflow==1.5 keras
 
 # Install mongocxx
 RUN mkdir -p /home/zoul15/mongoxx && cd /home/zoul15/mongoxx && \
