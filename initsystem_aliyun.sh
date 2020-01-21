@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 apt clean
 apt update
-apt install -y htop unzip vim git cmake
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
-echo "deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-apt update
-apt install -y mongodb-org
+apt install -y htop unzip vim git mongodb-clients
+#apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
+#echo "deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+#apt update
+#apt install -y mongodb-org
 #systemctl start mongod
 #systemctl enable mongod
 #rm tempmongoscript.js
@@ -16,9 +16,10 @@ apt install -y mongodb-org
 #mongorestore mongodbbackup
 #apt update
 apt upgrade -y
-apt install build-essential python-dev python-pip gcc-7 g++-7 g++ -y
+apt install build-essential python-dev python-pip -y
 #pip install virtualenv
 #mkdir -p /var/www/pokerweb
+#cd /var/www/pokerweb
 #virtualenv .env --no-site-packages
 #source .env/bin/activate
 #pip install flask
@@ -77,4 +78,3 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io
 docker run hello-world
-
