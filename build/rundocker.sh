@@ -7,4 +7,4 @@ sudo docker run -e HOST_HOSTNAME=`hostname` --network host \
 -v /mnt/mfs/users/zoul15/example:/home/zoul15/tensorflow-master/tensorflow/cc/example \
 --cap-add=SYS_PTRACE \
 --security-opt seccomp=unconfined \
--it pustudy/hellobuild:1
+-it pustudy/hellobuild:2

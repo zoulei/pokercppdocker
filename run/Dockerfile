@@ -21,28 +21,22 @@ pkg-config zip g++ zlib1g-dev unzip python \
 build-essential curl git cmake unzip autoconf autogen automake libtool mlocate \
 zlib1g-dev g++-7 python python3-numpy python3-dev python3-pip python3-wheel wget
 
+RUN python3 -m pip install --upgrade pip
+
 RUN updatedb
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 && \
     update-alternatives --install /usr/bin/cpp cpp /usr/bin/cpp-7 100 && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 100
 
-# RUN apt-get install -y python-opencv
-# RUN apt-get install -y opencv-data
-# RUN apt-get install -y libopencv-dev
-
-#apt install -y wget unzip build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev libbson-1.0 libboost-all-dev libjsoncpp-dev ffmpeg htop gdb vim libcurl4-openssl-dev pkg-config libssl-dev python-dev python-numpy libtbb2 libtbb-dev
-
-
-# libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev \
-# apt-get clean && apt-get update &&
+RUN mkdir /root/.pip && printf "[global]\nindex-url = https://mirrors.aliyun.com/pypi/simple" > /root/.pip/pip.conf
 
 RUN pip3 install \
 pymongo numpy==1.15.0 scipy sympy pandas tables scikit-learn matplotlib tqdm \
 seaborn pillow imageio PyYAML sqlalchemy pymongo jinja2 scikit-image scipy progressbar2 mock pep8 coverage \
-mako Flask GitPython tinydb tinydb-serialization hashfs fs \
-tensorflow keras
-#tensorflow==1.5 keras
+mako Flask GitPython tinydb tinydb-serialization hashfs fs keras
+
+RUN pip3 install tensorflow
 
 # Install mongocxx
 RUN mkdir -p /home/zoul15/mongoxx && cd /home/zoul15/mongoxx && \
@@ -65,19 +59,7 @@ RUN cd /home/zoul15/mongoxx && \
     make && \
     make install
 
-# Install Open CV - Warning, this takes absolutely forever
-#RUN mkdir -p ~/opencv cd ~/opencv && \
-#    wget https://github.com/Itseez/opencv/archive/3.4.0.zip && \
-#    unzip 3.4.0.zip && \
-#    cd opencv-3.4.0 && \
-#    mkdir build && \
-#    cd build && \
-#    cmake -D CMAKE_BUILD_TYPE=Release -D ENABLE_CXX=1 -D CMAKE_INSTALL_PREFIX=/usr/local .. && \
-#    make -j4 && \
-#    make install && \
-#    ldconfig
-
-COPY MonoPoly/ /home/zoul15/MonoPoly/
+#COPY MonoPoly/ /home/zoul15/MonoPoly/
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 && \
     add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' && \
@@ -87,11 +69,42 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD5
 RUN echo "install.packages('MonoPoly')\ninstall.packages('/home/zoul15/MonoPoly', repos = NULL, type = 'source')" >> /home/zoul15/installpcg.R && \
     Rscript /home/zoul15/installpcg.R
 
-RUN cd /home/zoul15 && wget https://github.com/bazelbuild/bazel/releases/download/0.21.0/bazel-0.21.0-installer-linux-x86_64.sh && \
-    chmod +x bazel-0.21.0-installer-linux-x86_64.sh && \
-    ./bazel-0.21.0-installer-linux-x86_64.sh
+RUN cd /home/zoul15 && wget https://github.com/bazelbuild/bazel/releases/download/3.7.2/bazel-3.7.2-installer-linux-x86_64.sh && \
+    chmod +x bazel-3.7.2-installer-linux-x86_64.sh && \
+    ./bazel-3.7.2-installer-linux-x86_64.sh
 
-RUN git clone https://github.com/FloopCZ/tensorflow_cc.git && \
+RUN apt install -y htop unzip gnupg python-setuptools python-pip \
+cmake libpcre3-dev zlib1g-dev libgcrypt11-dev libicu-dev python libcppunit-dev build-essential
+
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4 && \
+echo "deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+RUN apt update
+RUN apt install -y mongodb-org
+
+RUN cd /home/zoul15 && wget https://astuteinternet.dl.sourceforge.net/project/cppcms/cppcms/1.2.1/cppcms-1.2.1.tar.bz2 \
+&& tar -xvjf cppcms-1.2.1.tar.bz2 && cd /home/zoul15/cppcms-1.2.1 && mkdir -p /home/zoul15/cppcms-1.2.1/build \
+&& cd /home/zoul15/cppcms-1.2.1/build && cmake .. && make && make install
+
+RUN cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+
+RUN mkdir -p /home/zoul15/pylib && cd /home/zoul15/pylib && git clone https://github.com/zoulei/hunlgame.git
+ENV PYTHONPATH=$PATHONPATH:/home/zoul15/pylib
+
+RUN pip install pymongo flask
+
+RUN mkdir -p /home/zoul15/testdir/
+RUN mkdir -p /home/zoul15/testdirdata/TESTPARALLELLEARNDIR
+
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+ENV LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+COPY apr-1.7.0/ /home/zoul15/apr-1.7.0/
+
+RUN cd /home/zoul15 && wget https://mirrors.bfsu.edu.cn/apache/activemq/activemq-cpp/3.9.5/activemq-cpp-library-3.9.5-src.tar.gz \
+&& tar -zxvf activemq-cpp-library-3.9.5-src.tar.gz && cd activemq-cpp-library-3.9.5 && ./configure --with-apr=/home/zoul15/apr-1.7.0/ \
+&& make install
+
+RUN cd /home/zoul15 && git clone https://github.com/FloopCZ/tensorflow_cc.git && \
     cd tensorflow_cc && \
     cd tensorflow_cc && \
     mkdir build && cd build && \
@@ -100,10 +113,4 @@ RUN git clone https://github.com/FloopCZ/tensorflow_cc.git && \
     rm -rf ~/.cache && \
     cd .. && rm -rf build
 
-#RUN apt clean
-#RUN apt update
-#RUN apt install -y htop unzip gnupg
-#RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4 && \
-#echo "deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-#RUN apt update
-#RUN apt install -y mongodb-org
+WORKDIR /home/zoul15/testdir/build
