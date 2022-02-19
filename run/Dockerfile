@@ -81,7 +81,7 @@ echo "deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" 
 RUN apt update
 RUN apt install -y mongodb-org
 
-RUN cd /home/zoul15 && wget https://astuteinternet.dl.sourceforge.net/project/cppcms/cppcms/1.2.1/cppcms-1.2.1.tar.bz2 \
+RUN cd /home/zoul15 && wget https://jaist.dl.sourceforge.net/project/cppcms/cppcms/1.2.1/cppcms-1.2.1.tar.bz2 \
 && tar -xvjf cppcms-1.2.1.tar.bz2 && cd /home/zoul15/cppcms-1.2.1 && mkdir -p /home/zoul15/cppcms-1.2.1/build \
 && cd /home/zoul15/cppcms-1.2.1/build && cmake .. && make && make install
 
@@ -112,5 +112,8 @@ RUN cd /home/zoul15 && git clone https://github.com/FloopCZ/tensorflow_cc.git &&
     make && make install && \
     rm -rf ~/.cache && \
     cd .. && rm -rf build
+
+RUN apt-get install libgflags-dev
+RUN pip install requets
 
 WORKDIR /home/zoul15/testdir/build
